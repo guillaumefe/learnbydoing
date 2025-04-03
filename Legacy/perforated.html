@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Programming with Punched Cards and Perforated Tapes - Learn By Doing</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f9f9f9;
+      padding: 2rem;
+      line-height: 1.6;
+    }
+    h1, h2 { color: #333; }
+    h1 { text-align: center; }
+    p { margin-bottom: 1rem; }
+    textarea {
+      width: 100%;
+      height: 180px;
+      font-family: monospace;
+      margin-bottom: 0.5rem;
+    }
+    button {
+      padding: 0.4rem 0.8rem;
+      margin: 0.2rem 0.3rem 1rem 0;
+      cursor: pointer;
+    }
+    .section {
+      background: #fff;
+      padding: 1.5rem;
+      border-radius: 8px;
+      margin-bottom: 2rem;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    .output {
+      background: #222;
+      color: #0f0;
+      padding: 1rem;
+      white-space: pre-wrap;
+      border-radius: 4px;
+      margin-top: 0.5rem;
+    }
+    .source {
+      background: #ddd;
+      padding: 1rem;
+      text-align: center;
+      font-size: 14px;
+      color: #333;
+      border-radius: 8px;
+      margin-top: 2rem;
+    }
+    .note {
+      background: #eef;
+      border-left: 4px solid #99f;
+      padding: 0.5rem 1rem;
+      margin: 1rem 0;
+    }
+    .btn-group {
+      margin-bottom: 1rem;
+    }
+    /* Toast */
+    #toast {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #333;
+      color: #fff;
+      padding: 0.6rem 1rem;
+      border-radius: 5px;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+      pointer-events: none;
+      z-index: 9999;
+      font-size: 0.9rem;
+    }
+    #toast.show {
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+
+<h1>Programming with Punched Cards and Perforated Tapes - Learn By Doing</h1>
+<p>This exercise focuses on the technical mechanisms behind programming with punched cards and perforated tapes. You will explore how data is represented, read, and processed using interactive simulations.</p>
+
+<!-- SECTION 1: Data Representation -->
+<div class="section">
+  <h2>Data Representation on Punched Cards</h2>
+  <p>This simulation demonstrates how a punched card is represented as a binary string. Each character represents a position on the card where '1' indicates a punched hole and '0' indicates no hole.</p>
+  
+  <textarea id="code1">#include <stdio.h>
+
+int main() {
+    // Simulated punched card: '1' means a punched hole, '0' means no hole.
+    char cardData[] = "1010100110";
+    printf("Punched Card Data: %s\n", cardData);
+    return 0;
+}</textarea>
+  
+  <div class="btn-group">
+    <button onclick="runCode('code1', 'output1')">Run Code</button>
+    <button onclick="copyToClipboard('code1', 'Code copied!')">Copy Code</button>
+  </div>
+
+  <div class="output" id="output1">Waiting for execution...</div>
+  
+  <div class="btn-group">
+    <button onclick="copyToClipboard('output1', 'Output copied!')">Copy Output</button>
+    <button onclick="copyPrompt('code1', 'output1')">Copy Prompt</button>
+  </div>
+
+  <p class="note">Note: The binary string simulates the physical layout of punched holes on a card.</p>
+</div>
+<!-- END SECTION 1 -->
+
+<!-- SECTION 2: Simulated Card Reader -->
+<div class="section">
+  <h2>Simulated Card Reader</h2>
+  <p>This simulation reads the binary data from a punched card and converts it to an integer value. Modify the cardData variable to simulate different punched card patterns.</p>
+  
+  <textarea id="code2">#include <stdio.h>
+#include <stdlib.h>
+
+int main() {
+    // Simulated punched card data (binary string)
+    char cardData[] = "1010100110";
+    printf("Punched Card Data: %s\n", cardData);
+    
+    // Convert the binary string to an integer
+    int value = (int) strtol(cardData, NULL, 2);
+    printf("Interpreted Value: %d\n", value);
+    return 0;
+}</textarea>
+  
+  <div class="btn-group">
+    <button onclick="runCode('code2', 'output2')">Run Code</button>
+    <button onclick="copyToClipboard('code2', 'Code copied!')">Copy Code</button>
+  </div>
+
+  <div class="output" id="output2">Waiting for execution...</div>
+  
+  <div class="btn-group">
+    <button onclick="copyToClipboard('output2', 'Output copied!')">Copy Output</button>
+    <button onclick="copyPrompt('code2', 'output2')">Copy Prompt</button>
+  </div>
+
+  <p class="note">Note: This code converts a binary string to its numeric equivalent, simulating the reading process of a card reader.</p>
+</div>
+<!-- END SECTION 2 -->
+
+<!-- SECTION 3: Processing Data from Punched Cards -->
+<div class="section">
+  <h2>Processing Data from Punched Cards</h2>
+  <p>This example demonstrates how the data extracted from a punched card is processed and used to control an operation. Modify the binary string below to simulate different card patterns and observe the resulting action.</p>
+  
+  <textarea id="code3">#include <stdio.h>
+#include <stdlib.h>
+
+int main() {
+    // Change the binary string below to simulate different punched card patterns
+    char cardData[] = "1100110010";
+    printf("Punched Card Data: %s\n", cardData);
+    
+    // Process the card data: convert binary string to integer
+    int value = (int) strtol(cardData, NULL, 2);
+    printf("Interpreted Value: %d\n", value);
+    
+    // Use the interpreted value to trigger an operation:
+    // If the value is even, simulate starting a process; if odd, simulate stopping it.
+    if (value % 2 == 0) {
+        printf("Action: Start the process.\n");
+    } else {
+        printf("Action: Stop the process.\n");
+    }
+    
+    return 0;
+}</textarea>
+  
+  <div class="btn-group">
+    <button onclick="runCode('code3', 'output3')">Run Code</button>
+    <button onclick="copyToClipboard('code3', 'Code copied!')">Copy Code</button>
+  </div>
+
+  <div class="output" id="output3">Waiting for execution...</div>
+  
+  <div class="btn-group">
+    <button onclick="copyToClipboard('output3', 'Output copied!')">Copy Output</button>
+    <button onclick="copyPrompt('code3', 'output3')">Copy Prompt</button>
+  </div>
+
+  <p class="note">Note: Here, the interpreted value determines a concrete action, demonstrating a practical use of reading the punched card.</p>
+</div>
+<!-- END SECTION 3 -->
+
+<!-- SECTION 4: Executing a Complete Program from a Punched Card (with Binary Data) -->
+<div class="section">
+  <h2>Executing a Complete Program from a Punched Card</h2>
+  <p>In this example, the punched card contains a complete program stored as a binary string. Each 8 bits represent an ASCII character. The program is decoded, displayed, and its execution is simulated by producing a result.</p>
+  
+  <textarea id="code4">#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+int main() {
+    // Simulated punched card data in binary representing a complete program.
+    // The program prints a message: printf("Hello from punched card!\n");
+    // Each 8 bits correspond to one ASCII character.
+    char cardData[] =
+      "01110000"  // p
+      "01110010"  // r
+      "01101001"  // i
+      "01101110"  // n
+      "01110100"  // t
+      "01100110"  // f
+      "00101000"  // (
+      "00100010"  // "
+      "01001000"  // H
+      "01100101"  // e
+      "01101100"  // l
+      "01101100"  // l
+      "01101111"  // o
+      "00100000"  //  
+      "01100110"  // f
+      "01110010"  // r
+      "01101111"  // o
+      "01101101"  // m
+      "00100000"  //  
+      "01110000"  // p
+      "01110101"  // u
+      "01101110"  // n
+      "01100011"  // c
+      "01101000"  // h
+      "01100101"  // e
+      "01100100"  // d
+      "00100000"  //  
+      "01100011"  // c
+      "01100001"  // a
+      "01110010"  // r
+      "01100100"  // d
+      "00100001"  // !
+      "01011100"  // \
+      "01101110"  // n
+      "00100010"  // "
+      "00101001"  // )
+      "00111011"; // ;
+
+    // Determine the length of cardData and number of characters (8 bits per character)
+    int len = strlen(cardData);
+    int numChars = len / 8;
+    char program[numChars + 1];
+    for (int i = 0; i < numChars; i++) {
+        char byteStr[9];
+        strncpy(byteStr, cardData + i * 8, 8);
+        byteStr[8] = '\0';
+        int ascii = (int) strtol(byteStr, NULL, 2);
+        program[i] = (char) ascii;
+    }
+    program[numChars] = '\0';
+    
+    // Display the program read from the punched card
+    printf("Program read from the card:\n%s\n\n", program);
+    
+    // Simulate the execution of the program
+    printf("Executing the program...\n");
+    // In a real scenario, the program would be compiled and executed.
+    // Here, we simulate its effect:
+    printf("Program Output:\nHello from punched card!\n");
+    
+    return 0;
+}</textarea>
+  
+  <div class="btn-group">
+    <button onclick="runCode('code4', 'output4')">Run Code</button>
+    <button onclick="copyToClipboard('code4', 'Code copied!')">Copy Code</button>
+  </div>
+
+  <div class="output" id="output4">Waiting for execution...</div>
+  
+  <div class="btn-group">
+    <button onclick="copyToClipboard('output4', 'Output copied!')">Copy Output</button>
+    <button onclick="copyPrompt('code4', 'output4')">Copy Prompt</button>
+  </div>
+
+  <p class="note">Note: This code simulates reading a complete program from a punched card stored as a binary string, decodes it, and displays its simulated execution result.</p>
+</div>
+<!-- END SECTION 4 -->
+
+<p class="source">
+  Source: <a href="https://en.wikipedia.org/wiki/Punched_card" target="_blank">Wikipedia – Punched Card</a>
+</p>
+
+<div id="toast"></div>
+
+<script>
+async function runCode(codeId, outputId) {
+  const code = document.getElementById(codeId).value;
+  const output = document.getElementById(outputId);
+  output.textContent = "Running...";
+
+  try {
+    const response = await fetch('https://wandbox.org/api/compile.json', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        code: code,
+        compiler: "gcc-head",
+        options: "warning",
+        save: false
+      })
+    });
+    const text = await response.text();
+    const result = JSON.parse(text);
+
+    if (result.status === "0") {
+      output.textContent = result.program_output || "(No output)";
+    } else {
+      output.textContent = "Error:\n" + (result.compiler_error || result.program_error || "Unknown error");
+    }
+  } catch (err) {
+    output.textContent = "Execution failed: " + err;
+  }
+}
+
+function copyToClipboard(elementId, message = "Copied!") {
+  const text = document.getElementById(elementId).textContent || document.getElementById(elementId).value;
+  navigator.clipboard.writeText(text).then(() => showToast(message));
+}
+
+function copyPrompt(codeId, outputId) {
+  let code = document.getElementById(codeId).value.trim();
+  let output = document.getElementById(outputId).textContent.trim();
+  
+  if (!code) {
+    code = "{empty}";
+  }
+  if (!output) {
+    output = "{empty}";
+  }
+  
+  const prompt = `Why does this code:\n\n${code}\n\nproduce this result:\n\n${output}`;
+  navigator.clipboard.writeText(prompt).then(() => showToast("Prompt copied!"));
+}
+
+function showToast(msg) {
+  const toast = document.getElementById("toast");
+  toast.textContent = msg;
+  toast.className = "show";
+  setTimeout(() => {
+    toast.className = toast.className.replace("show", "");
+  }, 2000);
+}
+</script>
+
+</body>
+</html>
