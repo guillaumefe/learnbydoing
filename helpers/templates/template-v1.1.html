@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>{{TITLE}}</title>
+  <title>{{TITLE}} - Learn By Doing</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -81,7 +81,7 @@
 </head>
 <body>
 
-<h1>{{MAIN_TITLE}}</h1>
+<h1>{{MAIN_TITLE}} - Learn By Doing</h1>
 <p>{{INTRO_PARAGRAPH}}</p>
 
 <!-- SECTION TEMPLATE -->
@@ -149,8 +149,17 @@ function copyToClipboard(elementId, message = "Copied!") {
 }
 
 function copyPrompt(codeId, outputId) {
-  const code = document.getElementById(codeId).value.trim();
-  const output = document.getElementById(outputId).textContent.trim();
+  let code = document.getElementById(codeId).value.trim();
+  let output = document.getElementById(outputId).textContent.trim();
+  
+  // Vérifier si le code ou l'output est vide et remplacer par {empty}
+  if (!code) {
+    code = "{empty}";
+  }
+  if (!output) {
+    output = "{empty}";
+  }
+  
   const prompt = `Why does this code:\n\n${code}\n\nproduce this result:\n\n${output}`;
   navigator.clipboard.writeText(prompt).then(() => showToast("Prompt copied!"));
 }
