@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>C Structures – Interactive Exercises</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 2rem; background: #f0f0f0; }
+    h2 { background: #222; color: #fff; padding: 0.5rem; }
+    textarea { width: 100%; height: 150px; font-family: monospace; margin-bottom: 0.5rem; }
+    button { margin: 0.5rem 0; }
+    .section { background: white; padding: 1rem; margin-bottom: 2rem; border-radius: 8px; box-shadow: 0 0 5px #ccc; }
+    .output { background: #222; color: #0f0; padding: 1rem; white-space: pre-wrap; border-radius: 4px; }
+  </style>
+</head>
+<body>
+
+<h1>Structures in C – Learn by Doing</h1>
+
+<script>
+async function runCode(codeId, outputId) {
+  const code = document.getElementById(codeId).value;
+  const output = document.getElementById(outputId);
+  output.textContent = "Running...";
+
+  try {
+    const response = await fetch('https://wandbox.org/api/compile.json', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        code: code,
+        compiler: "gcc-head",
+        options: "warning",
+        save: false
+      })
+    });
+
+    const result = await response.json();
+
+    if (result.status === "0") {
+      output.textContent = result.program_output || "(No output)";
+    } else {
+      output.textContent = "Error:\n" + (result.compiler_error || result.program_error || "Unknown error");
+    }
+  } catch (err) {
+    output.textContent = "Execution failed: " + err;
+  }
+}
+</script>
+
+<!-- Exercices générés dynamiquement -->
+<script>
+const exercises = [
+  ["Structure Declaration", `#include <stdio.h>
+
+struct MyStruct {
+  int myNum;
+  char myLetter;
+};
+
+int main() {
+  struct MyStruct s;
+  printf("Structure declared!\\n");
+  return 0;
+}`],
+
+  ["Access Members", `#include <stdio.h>
+
+struct MyStruct {
+  int myNum;
+  char myLetter;
+};
+
+int main() {
+  struct MyStruct s;
+  s.myNum = 13;
+  s.myLetter = 'B';
+
+  printf("My number: %d\\n", s.myNum);
+  printf("My letter: %c\\n", s.myLetter);
+  return 0;
+}`],
+
+  ["Multiple Struct Variables", `#include <stdio.h>
+
+struct MyStruct {
+  int myNum;
+  char myLetter;
+};
+
+int main() {
+  struct MyStruct s1 = {13, 'B'};
+  struct MyStruct s2 = {20, 'C'};
+
+  printf("s1: %d %c\\n", s1.myNum, s1.myLetter);
+  printf("s2: %d %c\\n", s2.myNum, s2.myLetter);
+  return 0;
+}`],
+
+  ["String in Struct (wrong way)", `#include <stdio.h>
+
+struct MyStruct {
+  char myString[30];
+};
+
+int main() {
+  struct MyStruct s;
+  // s.myString = "Some text"; // invalid in C
+  printf("You can't assign a string like this!\\n");
+  return 0;
+}`],
+
+  ["String in Struct (correct way)", `#include <stdio.h>
+#include <string.h>
+
+struct MyStruct {
+  char myString[30];
+};
+
+int main() {
+  struct MyStruct s;
+  strcpy(s.myString, "Some text");
+  printf("My string: %s\\n", s.myString);
+  return 0;
+}`],
+
+  ["Initialization with Values", `#include <stdio.h>
+
+struct MyStruct {
+  int myNum;
+  char myLetter;
+  char myString[30];
+};
+
+int main() {
+  struct MyStruct s = {13, 'B', "Some text"};
+  printf("%d %c %s\\n", s.myNum, s.myLetter, s.myString);
+  return 0;
+}`],
+
+  ["Copy Structures", `#include <stdio.h>
+#include <string.h>
+
+struct MyStruct {
+  int myNum;
+  char myLetter;
+  char myString[30];
+};
+
+int main() {
+  struct MyStruct s1 = {13, 'B', "Some text"};
+  struct MyStruct s2;
+
+  s2 = s1;
+
+  printf("s1: %d %c %s\\n", s1.myNum, s1.myLetter, s1.myString);
+  printf("s2: %d %c %s\\n", s2.myNum, s2.myLetter, s2.myString);
+  return 0;
+}`],
+
+  ["Modify Copied Struct", `#include <stdio.h>
+#include <string.h>
+
+struct MyStruct {
+  int myNum;
+  char myLetter;
+  char myString[30];
+};
+
+int main() {
+  struct MyStruct s1 = {13, 'B', "Some text"};
+  struct MyStruct s2 = s1;
+
+  s2.myNum = 30;
+  s2.myLetter = 'C';
+  strcpy(s2.myString, "Something else");
+
+  printf("s1: %d %c %s\\n", s1.myNum, s1.myLetter, s1.myString);
+  printf("s2: %d %c %s\\n", s2.myNum, s2.myLetter, s2.myString);
+  return 0;
+}`],
+
+  ["Real-Life Example (Car)", `#include <stdio.h>
+
+struct Car {
+  char brand[50];
+  char model[50];
+  int year;
+};
+
+int main() {
+  struct Car car1 = {"BMW", "X5", 1999};
+  struct Car car2 = {"Ford", "Mustang", 1969};
+  struct Car car3 = {"Toyota", "Corolla", 2011};
+
+  printf("%s %s %d\\n", car1.brand, car1.model, car1.year);
+  printf("%s %s %d\\n", car2.brand, car2.model, car2.year);
+  printf("%s %s %d\\n", car3.brand, car3.model, car3.year);
+  return 0;
+}`]
+];
+</script>
+
+<script>
+window.addEventListener('DOMContentLoaded', () => {
+  const container = document.body;
+
+  exercises.forEach(([title, code], i) => {
+    const index = i + 1;
+    const section = document.createElement("div");
+    section.className = "section";
+
+    const h2 = document.createElement("h2");
+    h2.textContent = title;
+    section.appendChild(h2);
+
+    const textarea = document.createElement("textarea");
+    textarea.id = "code" + index;
+    textarea.value = code;
+    section.appendChild(textarea);
+
+    const button = document.createElement("button");
+    button.textContent = "Run";
+    button.onclick = () => runCode("code" + index, "output" + index);
+    section.appendChild(button);
+
+    const output = document.createElement("div");
+    output.className = "output";
+    output.id = "output" + index;
+    output.textContent = "Waiting for execution...";
+    section.appendChild(output);
+
+    container.appendChild(section);
+  });
+});
+</script>
+
+<p style="background:#ddd; padding:1rem; text-align:center; font-size:14px; color:#333; margin-top:2rem; border-radius:8px;">
+  Source: <a href="https://www.w3schools.com/c/c_structs.php" target="_blank">w3schools.com - C Structures</a>
+</p>
+
+</body>
+</html>
+
